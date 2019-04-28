@@ -1,0 +1,47 @@
+.cell {
+  width: 10rem;  
+  text-align: center;
+}
+
+.edit{
+  cursor: pointer;
+}
+
+.buttonDiv{
+  display: flex;
+
+}
+
+.message{
+  position: absolute;
+  top: 20vw;
+  left: 40vw;
+  width: auto;
+  border: 1px solid black;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.name{
+  width: 30rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.add{
+  cursor: pointer;
+}
+
+p{
+  margin-block-start: 0em;
+    margin-block-end: 0em;
+}
+
+.tab{
+  width: 30rem;  
+}
+
+.headcell{
+  width: 10rem;  
+}
