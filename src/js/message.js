@@ -73,7 +73,7 @@ export class MessageEdit extends Message {
       event.preventDefault();
       const ticked = { name: this.inputName.value, description: this.inputCost.value };
       const xhr = new XMLHttpRequest();
-      xhr.open('PUT', `http://localhost:7070/?tickets/:${this.ticked.id}`);
+      xhr.open('PUT', `https://ahj71.herokuapp.com/?tickets/:${this.ticked.id}`);
       xhr.send(JSON.stringify(ticked));
       xhr.addEventListener('load', () => {
         if (xhr.status === 200) {
@@ -98,7 +98,7 @@ export class MessageNew extends Message {
         id: null, name: this.inputName.value, description: this.inputCost.value, status: false, created: day,
       };
       const xhr = new XMLHttpRequest();
-      xhr.open('POST', 'http://localhost:7070');
+      xhr.open('POST', 'https://ahj71.herokuapp.com');
       xhr.send(JSON.stringify(ticked));
       xhr.addEventListener('load', () => {
         if (xhr.status === 200) {
@@ -131,7 +131,7 @@ export class MessageDel extends Message {
     this.buttonSave.addEventListener('click', (event) => {
       event.preventDefault();
       const xhr = new XMLHttpRequest();
-      xhr.open('DELETE', `http://localhost:7070/?tickets/:${this.ticked.id}`);
+      xhr.open('DELETE', `https://ahj71.herokuapp.com/?tickets/:${this.ticked.id}`);
       xhr.send();
       xhr.addEventListener('load', () => {
         if (xhr.status === 200) {

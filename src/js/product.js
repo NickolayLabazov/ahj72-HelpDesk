@@ -76,7 +76,7 @@ export default class Product {
         this.cellProd.querySelector('.description').parentNode.removeChild(this.cellProd.querySelector('.description'));
       } catch (e) {
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', `http://localhost:7070/?tickets/:${this.product.id}`);
+        xhr.open('GET', `https://ahj71.herokuapp.com/?tickets/:${this.product.id}`);
         xhr.send();
         xhr.addEventListener('load', () => {
           if (xhr.status === 200) {
@@ -94,7 +94,7 @@ export default class Product {
     this.status.style.cursor = 'pointer';
     this.status.addEventListener('click', () => {
       const xhr = new XMLHttpRequest();
-      xhr.open('PATCH', 'http://localhost:7070');
+      xhr.open('PATCH', 'https://ahj71.herokuapp.com');
       xhr.send(this.product.id);
       xhr.addEventListener('load', () => {
         if (xhr.status === 200) {

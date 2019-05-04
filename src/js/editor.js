@@ -36,7 +36,7 @@ export default class Editor {
 
   ticketsLoad() {
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://localhost:7070/?tickets');
+    xhr.open('GET', 'https://ahj71.herokuapp.com/?tickets');
     xhr.send();
 
     xhr.addEventListener('load', () => {
