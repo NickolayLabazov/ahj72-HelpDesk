@@ -15,8 +15,8 @@ export default class Editor {
     const head = document.createElement('tr');
     this.table.appendChild(head);
     this.parent.appendChild(this.table);
-    this.ticketsLoad();   
-    this.addLisstener();  
+    this.ticketsLoad();
+    this.addLisstener();
   }
 
   addLisstener() {
@@ -27,25 +27,23 @@ export default class Editor {
     });
   }
 
-  content(array){
-    
-    for(let ticket of array){      
-      let row = new Product(this.table, ticket);
+  content(array) {
+    for (const ticket of array) {
+      const row = new Product(this.table, ticket);
       row.create();
     }
   }
 
-  ticketsLoad(){    
+  ticketsLoad() {
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://localhost:7070');
-    xhr.open('GET', `http://localhost:7070/?tickets`);
+    xhr.open('GET', 'http://localhost:7070/?tickets');
     xhr.send();
-    
-    xhr.addEventListener('load', () => {        
-        if (xhr.status === 200) { 
-          this.tickets = JSON.parse(xhr.responseText);       
-          this.content(this.tickets);         
-        } 
-        });       
+
+    xhr.addEventListener('load', () => {
+      if (xhr.status === 200) {
+        this.tickets = JSON.parse(xhr.responseText);
+        this.content(this.tickets);
+      }
+    });
   }
 }

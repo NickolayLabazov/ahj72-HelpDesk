@@ -1,6 +1,7 @@
 .cell {
   width: 10rem;  
   text-align: center;
+  border-bottom: 1px solid black;
 }
 
 .edit{
@@ -21,6 +22,7 @@
   padding: 10px;
   display: flex;
   flex-direction: column;
+  background-color: white;
 }
 
 .name{
@@ -39,9 +41,20 @@ p{
 }
 
 .tab{
-  width: 30rem;  
+  width: 31rem;  
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-top: 1px solid black;
+  
+    border-spacing: 0px;
 }
 
 .headcell{
   width: 10rem;  
+}
+
+.status{
+  width: 3rem;  
+  text-align: center;
+  border-bottom: 1px solid black;
 }

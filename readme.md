@@ -1,3 +1,3 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/r6fe8lf35pdyukt7?svg=true)](https://ci.appveyor.com/project/NickolayLabazov/ahj1-environment)
+[![Build status](https://ci.appveyor.com/api/projects/status/wxr2apqb98aalgvk?svg=true)](https://ci.appveyor.com/project/NickolayLabazov/ahj72-helpdesk)
 # Рабочее окружение на yarn
- https://NickolayLabazov.github.io/ahj1-environment
+ https://NickolayLabazov.github.io/ahj72-HelpDesk

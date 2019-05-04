@@ -1,5 +1,4 @@
 import './css/style.css';
-import js from './img/js.png';
 import favicon from './img/favicon.ico';
 
 import './js/app.js';
@@ -9,4 +8,3 @@ fav.setAttribute('rel', 'shortcut icon');
 fav.setAttribute('href', `.${favicon}`);
 fav.setAttribute('type', 'image/x-icon');
 document.head.appendChild(fav);
-

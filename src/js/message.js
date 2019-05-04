@@ -1,5 +1,9 @@
 import Product from './product.js';
 
+const moment = require('moment');
+
+moment.locale('ru');
+
 class Message {
   constructor(div) {
     this.parent = div;
@@ -8,14 +12,16 @@ class Message {
     this.inputCost = 0;
     this.buttonSave = 0;
     this.buttonCanc = 0;
+    this.labelName = null;
+    this.labelCost = null;
   }
 
   create() {
     this.form = document.createElement('form');
     this.parent.appendChild(this.form);
     this.form.setAttribute('class', 'message');
-    const labelName = document.createElement('label');
-    const labelCost = document.createElement('label');
+    this.labelName = document.createElement('label');
+    this.labelCost = document.createElement('label');
     this.inputName = document.createElement('input');
     this.inputName.setAttribute('class', 'input');
     this.inputCost = document.createElement('input');
@@ -24,15 +30,15 @@ class Message {
     buttonDiv.setAttribute('class', 'buttonDiv');
     this.buttonSave = document.createElement('button');
     this.buttonCanc = document.createElement('button');
-    this.form.appendChild(labelName);
+    this.form.appendChild(this.labelName);
     this.form.appendChild(this.inputName);
-    this.form.appendChild(labelCost);
+    this.form.appendChild(this.labelCost);
     this.form.appendChild(this.inputCost);
     this.form.appendChild(buttonDiv);
     buttonDiv.appendChild(this.buttonSave);
     buttonDiv.appendChild(this.buttonCanc);
-    labelName.innerHTML = 'Краткое описание';
-    labelCost.innerHTML = 'Полное описание';
+    this.labelName.innerHTML = 'Краткое описание';
+    this.labelCost.innerHTML = 'Полное описание';
     this.buttonSave.innerHTML = 'Ок';
     this.buttonCanc.innerHTML = 'Отмена';
     try {
@@ -44,48 +50,36 @@ class Message {
   }
 
   cancLisstener() {
-    this.buttonCanc.addEventListener('click', () => {
+    this.buttonCanc.addEventListener('click', (event) => {
       event.preventDefault();
       this.removeMes();
     });
   }
 
   removeMes() {
-    document.body.removeChild(this.form);
+    this.form.parentNode.removeChild(this.form);
   }
 }
 
 export class MessageEdit extends Message {
-  constructor(div, prod) {
+  constructor(div, prod, ticked) {
     super(div);
     this.product = prod;
+    this.ticked = ticked;
   }
 
   saveLisstener() {
-    this.buttonSave.addEventListener('click', () => {
+    this.buttonSave.addEventListener('click', (event) => {
       event.preventDefault();
-
-     /*  let id = this.product.product.id;
-
-
-      var xhr = new XMLHttpRequest();
-      xhr.open("PUT", `http://localhost:7070/${id}`);
-      xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
-     
-      xhr.send('text');
-
-      xhr.addEventListener('load', () => {        
-        if (xhr.status === 200) { 
-          console.log(xhr.responseText);       
-          //this.content(this.tickets);         
-        } 
-        });   
- */
-
-
-
-
-      this.product.editing(this.inputName.value, this.inputCost.value);
+      const ticked = { name: this.inputName.value, description: this.inputCost.value };
+      const xhr = new XMLHttpRequest();
+      xhr.open('PUT', `http://localhost:7070/?tickets/:${this.ticked.id}`);
+      xhr.send(JSON.stringify(ticked));
+      xhr.addEventListener('load', () => {
+        if (xhr.status === 200) {
+          this.product.editing(this.inputName.value, this.inputCost.value);
+        }
+      });
       this.removeMes();
     });
   }
@@ -97,29 +91,53 @@ export class MessageNew extends Message {
   }
 
   saveLisstener() {
-    this.buttonSave.addEventListener('click', () => {
+    this.buttonSave.addEventListener('click', (event) => {
       event.preventDefault();
-      
-        
-        let ticked = {id: null, name: this.inputName.value, description: this.inputCost.value, status: false, created: '1.01.01' }
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', 'http://localhost:7070');
-        //xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');  
-        xhr.send(JSON.stringify(ticked)); 
-      
-        
-           
-      // event listener here
+      const day = moment().format('D MMMM YYYY');
+      const ticked = {
+        id: null, name: this.inputName.value, description: this.inputCost.value, status: false, created: day,
+      };
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', 'http://localhost:7070');
+      xhr.send(JSON.stringify(ticked));
       xhr.addEventListener('load', () => {
-          if (xhr.status === 200) {
-            const parent = document.body.querySelector('.tab');
-            const product = new Product(parent, ticked);
-            product.create();
+        if (xhr.status === 200) {
+          const parent = document.body.querySelector('.tab');
+          ticked.id = JSON.parse(xhr.responseText);
+          const product = new Product(parent, ticked);
+          product.create();
+        }
+      });
+      this.removeMes();
+    });
+  }
+}
 
-              console.log('1');
-          console.log(JSON.parse(xhr.responseText));
-          } 
-          });
+export class MessageDel extends Message {
+  constructor(div, prod, ticked) {
+    super(div);
+    this.product = prod;
+    this.ticked = ticked;
+  }
+
+  delMessage() {
+    this.inputName.style.display = 'none';
+    this.inputCost.style.display = 'none';
+    this.labelName.innerHTML = 'Удалить тикет';
+    this.labelCost.innerHTML = 'Вы уверены?';
+  }
+
+  saveLisstener() {
+    this.buttonSave.addEventListener('click', (event) => {
+      event.preventDefault();
+      const xhr = new XMLHttpRequest();
+      xhr.open('DELETE', `http://localhost:7070/?tickets/:${this.ticked.id}`);
+      xhr.send();
+      xhr.addEventListener('load', () => {
+        if (xhr.status === 200) {
+          this.product.parent.removeChild(this.product.row);
+        }
+      });
       this.removeMes();
     });
   }
