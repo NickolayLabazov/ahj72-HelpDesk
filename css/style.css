@@ -1,0 +1,60 @@
+.cell {
+  width: 10rem;  
+  text-align: center;
+  border-bottom: 1px solid black;
+}
+
+.edit{
+  cursor: pointer;
+}
+
+.buttonDiv{
+  display: flex;
+
+}
+
+.message{
+  position: absolute;
+  top: 20vw;
+  left: 40vw;
+  width: auto;
+  border: 1px solid black;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+}
+
+.name{
+  width: 30rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.add{
+  cursor: pointer;
+}
+
+p{
+  margin-block-start: 0em;
+    margin-block-end: 0em;
+}
+
+.tab{
+  width: 31rem;  
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-top: 1px solid black;
+  
+    border-spacing: 0px;
+}
+
+.headcell{
+  width: 10rem;  
+}
+
+.status{
+  width: 3rem;  
+  text-align: center;
+  border-bottom: 1px solid black;
+}
